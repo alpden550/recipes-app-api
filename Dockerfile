@@ -11,12 +11,12 @@ ENV PYTHONUNBUFFERED 1
 COPY requirements.txt requirements.txt
 RUN python -m pip install -r requirements.txt
 
-RUN mkdir /app
-WORKDIR /app
-ADD . /app
+RUN mkdir /src
+WORKDIR /src
+ADD . /src
 
 RUN adduser -D user
 USER user
 
 # During debugging, this entry point will be overridden. For more information, refer to https://aka.ms/vscode-docker-python-debug
-CMD ["python", "app.py"]
+CMD ["python", "manage.py", "ruserver", "0.0.0.0:8000"]
