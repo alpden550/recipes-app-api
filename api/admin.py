@@ -1,12 +1,14 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 
-from api import models
+from api.models import User
 
 
+@admin.register(User)
 class UserAdmin(BaseUserAdmin):
-    ordering = ['id']
-    list_display = ['email', 'name', 'is_staff', 'is_superuser']
+    ordering = ('id',)
+    list_display = ('email', 'name', 'is_staff', 'is_superuser')
+    search_fields = ('email', 'name')
     fieldsets = (
         (None, {
             'fields': ('email', 'password'),
@@ -24,6 +26,3 @@ class UserAdmin(BaseUserAdmin):
             'fields': ('email', 'password1', 'password2'),
         }),
     )
-
-
-admin.site.register(models.User, UserAdmin)
