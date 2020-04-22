@@ -4,9 +4,9 @@ from django.test import TestCase
 from api import models
 
 
-def create_sample_user(email='test@gmail.com', password='password'):
+def create_sample_user(email='test@gmail.com', password='password', name='User'):
     """Create a sample user"""
-    return get_user_model().objects.create_user(email, password)
+    return get_user_model().objects.create_user(email, password, name=name)
 
 
 class ModelTest(TestCase):
