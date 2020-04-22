@@ -7,7 +7,7 @@ from api.models import Tag, User
 @admin.register(User)
 class CustomUserAdmin(UserAdmin):
     ordering = ('id',)
-    list_display = ('email', 'name', 'is_staff', 'is_superuser',)
+    list_display = ('id', 'email', 'name', 'is_staff', 'is_superuser',)
     search_fields = ('email', 'name')
     fieldsets = (
         (None, {
@@ -23,7 +23,7 @@ class CustomUserAdmin(UserAdmin):
     add_fieldsets = (
         (None, {
             'classes': ('wide',),
-            'fields': ('email', 'password1', 'password2', 'is_staff', 'groups',),
+            'fields': ('email', 'password1', 'password2', 'name', 'is_staff', 'groups',),
         }),
     )
 
