@@ -1,5 +1,9 @@
-from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
-
+from django.conf import settings
+from django.contrib.auth.models import (
+    AbstractBaseUser,
+    BaseUserManager,
+    PermissionsMixin,
+)
 from django.db import models
 
 
@@ -36,3 +40,21 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_staff = models.BooleanField('Is staff', default=False)
 
     objects = UserManager()
+
+
+class Tag(models.Model):
+    """"Tag to be used for recipe"""
+    name = models.CharField('Tag name', max_length=255, unique=True)
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        verbose_name='User',
+        on_delete=models.CASCADE,
+        related_name='tags',
+    )
+
+    class Meta:
+        verbose_name = 'Tag'
+        verbose_name_plural = 'Tags'
+
+    def __str__(self):
+        return self.name

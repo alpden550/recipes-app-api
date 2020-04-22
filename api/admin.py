@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 
-from api.models import User
+from api.models import Tag, User
 
 
 @admin.register(User)
@@ -26,3 +26,12 @@ class CustomUserAdmin(UserAdmin):
             'fields': ('email', 'password1', 'password2', 'is_staff', 'groups',),
         }),
     )
+
+
+@admin.register(Tag)
+class TagAdmin(admin.ModelAdmin):
+    list_display = ('name', 'user',)
+    search_fields = ('name',)
+    list_editable = ('name',)
+    list_display_links = ('user',)
+    list_filter = ('name',)
