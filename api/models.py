@@ -58,3 +58,21 @@ class Tag(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Ingredient(models.Model):
+    """"Ingredient to be used for recipe"""
+    name = models.CharField('Ingredient name', max_length=255)
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        verbose_name='User',
+        on_delete=models.CASCADE,
+        related_name='ingredients',
+    )
+
+    class Meta:
+        verbose_name = 'Ingredient'
+        verbose_name_plural = 'Ingredients'
+
+    def __str__(self):
+        return self.name

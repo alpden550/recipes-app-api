@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 
-from api.models import Tag, User
+from api.models import Ingredient, Tag, User
 
 
 @admin.register(User)
@@ -35,3 +35,6 @@ class TagAdmin(admin.ModelAdmin):
     list_editable = ('name',)
     list_display_links = ('user',)
     list_filter = ('name',)
+
+
+admin.site.register(Ingredient)
