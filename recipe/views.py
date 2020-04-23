@@ -1,4 +1,4 @@
-from rest_framework import mixins, viewsets
+from rest_framework import viewsets
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 
@@ -6,9 +6,7 @@ from api.models import Ingredient, Tag
 from recipe.serializers import IngredientSerializer, TagSerializer
 
 
-class BaseRecipeAttrViewSet(viewsets.GenericViewSet,
-                            mixins.ListModelMixin,
-                            mixins.CreateModelMixin):
+class BaseRecipeAttrViewSet(viewsets.ModelViewSet):
     """Base viewset for user recipe attributes"""
     authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAuthenticated,)
