@@ -76,3 +76,35 @@ class Ingredient(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Recipe(models.Model):
+    """"User recipe object"""
+    title = models.CharField('Title', max_length=255, db_index=True)
+    time_minutes = models.PositiveIntegerField('Minutes')
+    price = models.DecimalField('Price', max_digits=5, decimal_places=2)
+    link = models.URLField('Link', max_length=255, blank=True)
+
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        verbose_name='User',
+        related_name='recipes',
+        on_delete=models.CASCADE,
+    )
+    ingredients = models.ManyToManyField(
+        'Ingredient',
+        verbose_name='Ingredients',
+        related_name='recipes',
+    )
+    tags = models.ManyToManyField(
+        'Tag',
+        verbose_name='Tags',
+        related_name='recipes',
+    )
+
+    class Meta:
+        verbose_name = 'Recipe'
+        verbose_name_plural = 'Recipes'
+
+    def __str__(self):
+        return self.title

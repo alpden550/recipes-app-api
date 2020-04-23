@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 
-from api.models import Ingredient, Tag, User
+from api.models import Ingredient, Recipe, Tag, User
 
 
 @admin.register(User)
@@ -30,11 +30,18 @@ class CustomUserAdmin(UserAdmin):
 
 @admin.register(Tag)
 class TagAdmin(admin.ModelAdmin):
-    list_display = ('name', 'user',)
+    list_display = ('id', 'name', 'user',)
     search_fields = ('name',)
     list_editable = ('name',)
     list_display_links = ('user',)
     list_filter = ('name',)
+
+
+@admin.register(Recipe)
+class RecipeAdmin(admin.ModelAdmin):
+    list_display = ('id', 'title', 'price', 'time_minutes', 'user')
+    search_fields = ('title',)
+    list_editable = ('title',)
 
 
 admin.site.register(Ingredient)
