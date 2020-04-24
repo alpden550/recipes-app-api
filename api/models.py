@@ -1,10 +1,18 @@
+import uuid
+from pathlib import Path
+
 from django.conf import settings
-from django.contrib.auth.models import (
-    AbstractBaseUser,
-    BaseUserManager,
-    PermissionsMixin,
-)
+from django.contrib.auth.models import (AbstractBaseUser, BaseUserManager,
+                                        PermissionsMixin)
 from django.db import models
+
+
+def recipe_image_file_path(instance, filename: str, path='uploads/recipe/'):
+    """Generate file path for new recipe image"""
+    extension = filename.split('.')[-1]
+    uuidname = f'{uuid.uuid4()}.{extension}'
+
+    return str(Path(path).joinpath(uuidname))
 
 
 class UserManager(BaseUserManager):
@@ -84,6 +92,12 @@ class Recipe(models.Model):
     time_minutes = models.PositiveIntegerField('Minutes')
     price = models.DecimalField('Price', max_digits=5, decimal_places=2)
     link = models.URLField('Link', max_length=255, blank=True)
+    decription = models.TextField('Recipe Description', blank=True)
+    image = models.ImageField(
+        'Image',
+        upload_to=recipe_image_file_path,
+        blank=True,
+    )
 
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
