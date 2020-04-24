@@ -92,7 +92,7 @@ class Recipe(models.Model):
     time_minutes = models.PositiveIntegerField('Minutes')
     price = models.DecimalField('Price', max_digits=5, decimal_places=2)
     link = models.URLField('Link', max_length=255, blank=True)
-    decription = models.TextField('Recipe Description', blank=True)
+    description = models.TextField('Recipe Description', blank=True)
     image = models.ImageField(
         'Image',
         upload_to=recipe_image_file_path,
